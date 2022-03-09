@@ -29,7 +29,9 @@ def open_chrome():
     ]
   )
 
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # main program logic
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 def run_recaptcha_test():
 
   # Chrome options
@@ -37,12 +39,33 @@ def run_recaptcha_test():
   options.add_experimental_option("debuggerAddress", "localhost:8989")
   driver = webdriver.Chrome(
     executable_path="/usr/local/bin/chromedriver",
-    chrome_options=options,
+    options=options,
   )
   wait = WebDriverWait(driver, 60)
 
+  def await_presence_of_xpath(code):
+    wait.until(ExpectedConditions.presence_of_element_located((By.XPATH, code)))
+
   # navigate to demo webpage
-  driver.get()
+  driver.get(
+    'https://recaptcha-demo.appspot.com/recaptcha-v3-request-scores.php'
+  )
+
+  # wait for the presence of 'go' button
+  await_presence_of_xpath(
+      '//*/body/main/ol/li[@class="step1"]/button[@class="go"]')
+  # locate 'go' button
+  go_button = driver.find_element_by_xpath(
+      '//*/body/main/ol/li[@class="step1"]/button[@class="go"]')
+  go_button.click()
+
+  # wait for the presence of demo result
+  await_presence_of_xpath('//*/body/main/ol/li[@class="step4"]')
+  # locate demo result
+  demo_result = driver.find_element_by_xpath(
+      '//*/body/main/ol/li[@class="step4"]').text
+  print(demo_result)
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 # open Chrome button
 open_chrome_button = tkinter.Button(
