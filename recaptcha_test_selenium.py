@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import Select
 
 # setting up native window
 root = Tk()
-root.geometry('300x300')
+root.geometry('150x50')
 root.title("Selenium reCAPTCHA Score Tester")
 
 # opening Chrome instance
@@ -34,11 +34,23 @@ def run_recaptcha_test():
 
   # Chrome options
   options = Options()
+  options.add_experimental_option("debuggerAddress", "localhost:8989")
+  driver = webdriver.Chrome(
+    executable_path="/usr/local/bin/chromedriver",
+    chrome_options=options,
+  )
+  wait = WebDriverWait(driver, 60)
+
+# open Chrome button
+open_chrome_button = tkinter.Button(
+  root, width=10, text="Open Chrome", command=open_chrome
+)
+open_chrome_button.grid(row=1, column=1)
 
 # start button
 start_app_button = tkinter.Button(
-    root, width=200, bg="#1BD009", text="Start", command=run_recaptcha_test
+  root, width=10, text="Start", command=run_recaptcha_test
 )
-start_app_button.grid(row=0, column=0)
+start_app_button.grid(row=2, column=1)
 
 root.mainloop()
