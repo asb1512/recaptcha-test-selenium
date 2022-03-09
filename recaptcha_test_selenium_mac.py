@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import Select
 
 # setting up native window
 root = Tk()
-root.geometry('150x50')
+root.geometry('125x65')
 root.title("Selenium reCAPTCHA Score Tester")
 
 # opening Chrome instance
@@ -40,6 +40,9 @@ def run_recaptcha_test():
     chrome_options=options,
   )
   wait = WebDriverWait(driver, 60)
+
+  # navigate to demo webpage
+  driver.get()
 
 # open Chrome button
 open_chrome_button = tkinter.Button(
