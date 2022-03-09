@@ -1,4 +1,6 @@
 import tkinter
+from tkinter import *
+from tkinter.ttk import *
 import subprocess
 from turtle import width
 from selenium import webdriver
@@ -10,7 +12,7 @@ from selenium.webdriver.support.ui import Select
 
 # setting up native window
 root = Tk()
-root.geometry('300x100')
+root.geometry('300x300')
 root.title("Selenium reCAPTCHA Score Tester")
 
 # opening Chrome instance
@@ -27,15 +29,16 @@ def open_chrome():
     ]
   )
 
-  # main program logic
-  def run_recaptcha_test():
+# main program logic
+def run_recaptcha_test():
 
-    # Chrome options
-    options = Options()
+  # Chrome options
+  options = Options()
 
-  # start button
-  start_app_button = tkinter.Button(
-    root, width=200, bg="green", fg="white", text="Start", 
-  )
+# start button
+start_app_button = tkinter.Button(
+    root, width=200, bg="#1BD009", text="Start", command=run_recaptcha_test
+)
+start_app_button.grid(row=0, column=0)
 
-  root.mainLoop()
+root.mainloop()
